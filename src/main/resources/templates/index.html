@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <title>add risk2</title>
+
+    </head>
+    <body>
+	<div>
+       <div th:each="cat,iterStat : ${risks}" >
+
+           <a th:style="${iterStat.odd}? 'color:#15999e'"  th:text="| ${cat.name}  &nbsp;  &nbsp; |" >Risk Name </a>
+
+           <a th:href="@{|/risks/${cat.id}/edit|}" style="font-size:14px">edit</a>
+			
+			<br/>  <br/>                  
+      </div>
+   
+	</div>
+<br/><br/>
+<a href="/risks/add" style="font-size:14px">add new risk</a>
+
+</body>
+
+</html>

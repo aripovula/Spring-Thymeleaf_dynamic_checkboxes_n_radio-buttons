@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>add risk</title>
+    </head>
+    <body>
+	<div>
+    <form th:action="@{${action}}" method="post" th:object="${risk}">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <div>
+                <h2 th:text="${heading}">New Risk</h2>
+            </div>
+        </div>
+        
+        <div>
+            <div th:classappend="${#fields.hasErrors('name')}? 'error' : ''">
+                <textarea th:field="*{name}" placeholder="Risk description"></textarea>
+                <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            </div>
+        </div>
+        <br/><br/>
+        <div>
+        		<div th:each="top : ${topics}">
+        			<input type="checkbox" th:field="*{topic}"  th:value="${top.id}"/><label th:text=" | &nbsp; ${top.name}|">Something is wrong !</label>
+        		</div>
+        </div>
+        <br/><br/>
+        <div>
+        		<div th:each="typ : ${types}">
+        			<input type="radio" th:field="*{type}"  th:value="${typ.id}"/><label th:text="| &nbsp; ${typ.name} |">Something is wrong !</label>
+        		</div>
+        </div>
+        <br/><br/>
+        <div>
+            <div>
+                <button th:text="${submit}">Add</button>
+                
+                &nbsp; &nbsp; <button th:href="@{/risks}">Cancel</button>
+            </div>
+        </div>
+    </form>
+    
+    
+</div>
+</body>
+</html>
