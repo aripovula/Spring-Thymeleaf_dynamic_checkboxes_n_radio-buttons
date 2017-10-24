@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.chc.model.Risk;
 import com.chc.other.Topics;
 import com.chc.other.Types;
+import com.chc.other.Modes;
 import com.chc.service.RiskService;
 
 @Controller
@@ -41,11 +42,34 @@ public class RiskController {
         }
         model.addAttribute("topics", Topics.values());
         model.addAttribute("types", Types.values());
+        model.addAttribute("modes", Modes.values());
         model.addAttribute("action","/risks");
         model.addAttribute("heading","New Risk");
         model.addAttribute("submit","Add");
 
         return "riskform";
+    }
+    
+    // Form for adding a new risk  - checkboxes in table form
+    @GetMapping("/riskstable/add")
+    public String formNewRiskTable(Model model) {
+
+        if(!model.containsAttribute("risk")) {
+            model.addAttribute("risk",new Risk());
+        }
+        model.addAttribute("topics", Topics.values());
+        model.addAttribute("types", Types.values());
+        model.addAttribute("modes", Modes.values());
+        model.addAttribute("action","/risks");
+        model.addAttribute("heading","New Risk");
+        model.addAttribute("submit","Add");
+        
+        // for tabulating checkboxes - please remove following 2 lines if you do not need checkboxes in table form
+        model.addAttribute("begincolumn", "<tr>");
+        model.addAttribute("endcolumn", "</tr>");
+
+
+        return "riskformtable";
     }
 
     // Add a risk
@@ -78,11 +102,33 @@ public class RiskController {
         }
         model.addAttribute("topics", Topics.values());
         model.addAttribute("types", Types.values());
+        model.addAttribute("modes", Modes.values());
         model.addAttribute("action",String.format("/risks/%s",riskId));
         model.addAttribute("heading","Edit Risk");
         model.addAttribute("submit","Update");
-
+        
         return "riskform";
+    }
+    
+    // Form for editing an existing risk - checkboxes in table form
+    @GetMapping("riskstable/{riskId}/edit")
+    public String formEditRiskTable(@PathVariable Long riskId, Model model) {
+
+        if(!model.containsAttribute("risk")) {
+            model.addAttribute("risk",riskService.findById(riskId));
+        }
+        model.addAttribute("topics", Topics.values());
+        model.addAttribute("types", Types.values());
+        model.addAttribute("modes", Modes.values());
+        model.addAttribute("action",String.format("/risks/%s",riskId));
+        model.addAttribute("heading","Edit Risk");
+        model.addAttribute("submit","Update");
+        
+        // for tabulating checkboxes - please remove following 2 lines if you do not need checkboxes in table form
+        model.addAttribute("begincolumn", "<tr>");
+        model.addAttribute("endcolumn", "</tr>");
+
+        return "riskformtable";
     }
 
     // Update an existing risk

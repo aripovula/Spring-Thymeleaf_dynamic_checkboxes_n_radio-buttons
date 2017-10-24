@@ -20,11 +20,34 @@
             </div>
         </div>
         <br/><br/>
-		<!-- all th:field=*{..} values should correspond to your field name in the model class, in this case to Risk.java fields-->
+
         <div>
-        		<div th:each="top : ${topics}">
-        			<input type="checkbox" th:field="*{topic}"  th:value="${top.id}"/><label th:text=" | &nbsp; ${top.name}|">Something is wrong !</label>
-        		</div>
+        
+        <!-- I could do it only thanks to -->
+        <!--  https://stackoverflow.com/a/23294426/6332774 -->
+        <!-- but I am not sure if it is clean and whether it is totally safe -->
+        
+        <table>
+        		<span th:each="top, iterStat : ${topics}" th:remove="tag">
+        			<span th:if="${iterStat.first}" th:remove="tag">
+        				<span th:remove="tag" th:utext="${begincolumn}"></span>
+        			</span>
+        			
+        			<!--  change number of colums needed here, currently 3 columns  -->
+        			<span th:if="${iterStat.index % 3 == 0}" th:remove="tag">
+        				<span th:remove="tag" th:utext="|${endcolumn}  ${begincolumn}|"></span>
+        			</span>
+        			
+        			<th>
+        				<input type="checkbox" th:field="*{topic}"  th:value="${top.id}"/><label th:text=" | &nbsp; ${top.name}|">Something is wrong !</label>
+				</th>
+        			
+        			<span th:remove="tag" th:if="${iterStat.last}" >
+        				<span th:remove="tag" th:utext="${endcolumn}"></span>
+        			</span>
+
+        		</span>
+        		</table>
         </div>
         
         <br/><br/>
@@ -34,20 +57,19 @@
         		</div>
         </div>
         <br/><br/>
+ 
         <div>
             <div>
                 <select th:field="*{mode}">
                     <option value="" disabled="disabled">Mode to which this risk is related</option>
-                    <option th:each="mo : ${modes}" th:value="${mo.id}" th:text="${mo.name}">Something is wrong !</option>
+                    <option th:each="mo : ${modes}" th:value="${mo.id}" th:text="${mo.name}"></option>
                 </select>
             </div>
         </div>
-                
-        <br/><br/>
+ 		<br/><br/>       
         <div>
             <div>
                 <button th:text="${submit}">Add</button>
-                
                 &nbsp; &nbsp; <button th:href="@{/risks}">Cancel</button>
             </div>
         </div>

@@ -29,8 +29,9 @@ public class Risk {
     @Convert(converter = StringListConverter.class)
     private List<String> topic = new ArrayList<>();
 
-    @Convert(converter = StringListConverter.class)
-    private List<String> type = new ArrayList<>();
+    private String type;
+    
+    private String mode;
     
     public Long getId() {
 		return id;
@@ -56,12 +57,22 @@ public class Risk {
 		this.topic = topic;
 	}
 
-	public List<String> getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(List<String> type) {
+	public void setType(String type) {
 		this.type = type;
 	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	
 	
 }
