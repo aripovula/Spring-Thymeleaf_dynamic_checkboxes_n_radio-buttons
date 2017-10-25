@@ -1,4 +1,4 @@
-package com.chc.other;
+package com.dch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import javax.persistence.Converter;
 // Thank you  Tobias Liefke  !
 
 @Converter
-public class StringListConverter implements AttributeConverter<List<String>, String> {
+public class StringListsConverter implements AttributeConverter<List<String>, String> {
 
   @Override
   public String convertToDatabaseColumn(List<String> list) {

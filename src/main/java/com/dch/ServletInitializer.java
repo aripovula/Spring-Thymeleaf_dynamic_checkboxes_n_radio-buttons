@@ -1,4 +1,4 @@
-package com.chc;
+package com.dch;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;

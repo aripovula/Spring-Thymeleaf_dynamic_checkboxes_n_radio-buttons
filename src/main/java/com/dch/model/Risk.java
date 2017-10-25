@@ -1,7 +1,6 @@
-package com.chc.model;
+package com.dch.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Convert;
@@ -12,7 +11,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.chc.other.StringListConverter;
+import com.dch.StringListsConverter;
 
 
 @Entity
@@ -26,7 +25,7 @@ public class Risk {
     @Size(min = 2, max = 255)
     private String name;
 
-    @Convert(converter = StringListConverter.class)
+    @Convert(converter = StringListsConverter.class)
     private List<String> topic = new ArrayList<>();
 
     private String type;

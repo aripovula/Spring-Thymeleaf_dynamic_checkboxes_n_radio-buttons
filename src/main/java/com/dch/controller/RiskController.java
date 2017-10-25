@@ -1,10 +1,11 @@
-package com.chc.controller;
+package com.dch.controller;
 
 // Coded by ULUGBEK ( ULA ) ARIPOV
 // using guidance in
 // http://forum.thymeleaf.org/The-checked-attribute-of-the-checkbox-is-not-set-in-th-each-td3043675.html
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +15,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.chc.model.Risk;
-import com.chc.other.Topics;
-import com.chc.other.Types;
-import com.chc.other.Modes;
-import com.chc.service.RiskService;
+import com.dch.model.Risk;
+import com.dch.other.DoOtherStuff;
+import com.dch.other.Modes;
+import com.dch.service.RiskService;
+import com.dch.service.TopicsService;
+import com.dch.service.TypesService;
 
 @Controller
 public class RiskController {
-    @Autowired
+    
+	@Autowired
     private RiskService riskService;
+
+	@Autowired
+    private TopicsService topicsService;
+
+	@Autowired
+    private TypesService typesService;
+
+	@Autowired
+    private DoOtherStuff doOtherStuff;
 
     // Index of all risks
     @GetMapping("/risks")
@@ -40,8 +52,14 @@ public class RiskController {
         if(!model.containsAttribute("risk")) {
             model.addAttribute("risk",new Risk());
         }
-        model.addAttribute("topics", Topics.values());
-        model.addAttribute("types", Types.values());
+        
+        // We explicitly call method which dynamically creates Topics and Types - in your implementation you may want to remove this call
+        // And make sure that at least one instance of both objects are created before this Controller is reached.
+        // Implement your dynamic checkbox creating class as shown here - through Autowiring and through interface to achieve loose coupling 
+        doOtherStuff.doStuff();
+        
+        model.addAttribute("topics", topicsService.findAll());
+        model.addAttribute("types", typesService.findAll());
         model.addAttribute("modes", Modes.values());
         model.addAttribute("action","/risks");
         model.addAttribute("heading","New Risk");
@@ -57,8 +75,15 @@ public class RiskController {
         if(!model.containsAttribute("risk")) {
             model.addAttribute("risk",new Risk());
         }
-        model.addAttribute("topics", Topics.values());
-        model.addAttribute("types", Types.values());
+
+        // We explicitly call method which dynamically creates Topics and Types - in your implementation you may want to remove this call
+        // Make sure that at least one instance of both objects are created before this Controller is reached. 
+        // Implement your dynamic checkbox creating class as shown here - through Autowiring and through interface to achieve loose coupling
+        doOtherStuff.doStuff();
+        
+        model.addAttribute("topics", topicsService.findAll());
+        model.addAttribute("types", typesService.findAll());
+
         model.addAttribute("modes", Modes.values());
         model.addAttribute("action","/risks");
         model.addAttribute("heading","New Risk");
@@ -100,8 +125,10 @@ public class RiskController {
         if(!model.containsAttribute("risk")) {
             model.addAttribute("risk",riskService.findById(riskId));
         }
-        model.addAttribute("topics", Topics.values());
-        model.addAttribute("types", Types.values());
+
+        model.addAttribute("topics", topicsService.findAll());
+        model.addAttribute("types", typesService.findAll());
+
         model.addAttribute("modes", Modes.values());
         model.addAttribute("action",String.format("/risks/%s",riskId));
         model.addAttribute("heading","Edit Risk");
@@ -117,8 +144,10 @@ public class RiskController {
         if(!model.containsAttribute("risk")) {
             model.addAttribute("risk",riskService.findById(riskId));
         }
-        model.addAttribute("topics", Topics.values());
-        model.addAttribute("types", Types.values());
+
+        model.addAttribute("topics", topicsService.findAll());
+        model.addAttribute("types", typesService.findAll());
+
         model.addAttribute("modes", Modes.values());
         model.addAttribute("action",String.format("/risks/%s",riskId));
         model.addAttribute("heading","Edit Risk");

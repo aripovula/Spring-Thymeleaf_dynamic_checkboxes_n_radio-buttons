@@ -1,17 +1,37 @@
-package com.chc.other;
+package com.dch.model;
 
-public enum Topics {
-    ABC(0, "ABC"),
-    BCD(1,"BCD"),
-    CDE(2,"CDE"),
-    DEF(3, "DEF"),
-    EFG(4, "EFG");
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-	public int id;
+@Entity
+public class Topics {
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Size(min = 2, max = 255)
 	public String name;
 
-    private Topics (int id, String name){
-	    	this.id = id;    
-	    	this.name = name;
-    }
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

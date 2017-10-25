@@ -1,4 +1,4 @@
-package com.chc.other;
+package com.dch.other;
 
 public enum Modes {
     MODE1(0, "M1"),

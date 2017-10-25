@@ -1,8 +1,8 @@
-package com.chc.service;
+package com.dch.service;
 
 import java.util.List;
 
-import com.chc.model.Risk;
+import com.dch.model.Risk;
 
 public interface RiskService {
 

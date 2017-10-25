@@ -12,6 +12,10 @@
                 <h2 th:text="${heading}">New Risk</h2>
             </div>
         </div>
+        <br/>
+        <p>These are dynamically created checkboxes and radio buttons - to show this each time you click Add new risk two new checkboxes and radio-buttons are created with random numbers (from 1 to 40) appended. </p>        
+        <p>Currently checkboxes / radio-buttons are created in DoOtherStuffImpl.java. Adjust implementation of this class based on your needs.</p>
+        <br/>
         
         <div>
             <div th:classappend="${#fields.hasErrors('name')}? 'error' : ''">
@@ -19,7 +23,9 @@
                 <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             </div>
         </div>
-        <br/><br/>
+        <br/>
+        <br/>
+
 
         <div>
         
